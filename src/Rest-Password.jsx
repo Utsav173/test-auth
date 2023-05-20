@@ -9,21 +9,21 @@ const RestPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    console.log({
-      password: formData.get("password"),
-      resetToken,
-    });
+    // console.log({
+    //   password: formData.get("password"),
+    //   resetToken,
+    // });
     axios
-      .post(`http://localhost:1337/reset-password/${resetToken}`, {
+      .post(`${import.meta.env.VITE_API_URL}/reset-password/${resetToken}`, {
         password: formData.get("password"),
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         alert(res.statusText);
         router("/login");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         alert(err.response.data);
       });
   };

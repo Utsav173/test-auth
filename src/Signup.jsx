@@ -1,28 +1,32 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 
 const Signup = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const formData = new FormData(e.target);
-    console.log({
-      email: formData.get("email"),
-      password: formData.get("password"),
-      name: formData.get("name"),
-    });
+    // console.log({
+    //   email: formData.get("email"),
+    //   password: formData.get("password"),
+    //   name: formData.get("name"),
+    // });
 
     axios
-      .post("http://localhost:1337/signup", {
+      .post(`${import.meta.env.VITE_API_URL}/signup`, {
         email: formData.get("email"),
         password: formData.get("password"),
         name: formData.get("name"),
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
+        setIsLoading(false);
         alert(res.statusText);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
+        setIsLoading(false);
         alert(err.response.data);
       });
   };
@@ -31,7 +35,9 @@ const Signup = () => {
       <input placeholder="email" type="email" name="email" />
       <input placeholder="name" type="text" name="name" />
       <input placeholder="password" type="password" name="password" />
-      <button type="submit">signup</button>
+      <button type="submit" disabled={isLoading}>
+    {isLoading ? 'Signing up...' : 'Signup'}
+  </button>
     </form>
   );
 };

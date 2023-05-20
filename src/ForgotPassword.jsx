@@ -7,21 +7,19 @@ const ForgotPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    console.log({
-      email: formData.get("email"),
-    });
+
 
     axios
-      .post("http://localhost:1337/forgot-password", {
+      .post(`${import.meta.env.VITE_API_URL}/forgot-password`, {
         email: formData.get("email"),
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         alert(res.statusText);
         router(`/rest-password/${res.data.resetToken}`);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         alert(err.response.data);
       });
   };
