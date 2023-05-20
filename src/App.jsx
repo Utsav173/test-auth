@@ -1,12 +1,6 @@
-import {
-  Route,
-  Router,
-  RouterProvider,
-  Routes,
-  createBrowserRouter,
-} from "react-router-dom";
-import Login from "./login";
-import Signup from "./signup";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Login from "./Login";
+import Signup from "./Signup";
 import Home from "./Home";
 import ForgotPassword from "./ForgotPassword";
 import RestPassword from "./Rest-Password";
