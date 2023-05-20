@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [user, setUser] = useState();
+  const router = useNavigate();
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("userInfo")));
+    if (localStorage.getItem("userInfo")) {
+      setUser(JSON.parse(localStorage.getItem("userInfo")));
+    } else {
+      router("/login");
+    }
   }, []);
   return (
     <div>
@@ -15,6 +20,17 @@ const Home = () => {
         </li>
         <li>
           <Link to="/signup">Signup</Link>
+        </li>
+        <li>
+          <button
+            onClick={() => {
+              localStorage.removeItem("userInfo");
+              setUser(null);
+              router("/login");
+            }}
+          >
+            logout
+          </button>
         </li>
       </ul>
       {user && (
